@@ -40,6 +40,7 @@ class HomeScreen extends StatelessWidget {
                     onResetPressed: () {
                         orderAction.resetByIndex(index);
                     },
+                    context: context,
                     title: orderState.orders[index].subject,
                     success: orderState.orders[index].success,
                     total: orderState.orders[index].total.toString(),
@@ -86,6 +87,7 @@ class HomeScreen extends StatelessWidget {
     }
 
     Widget _orderList({
+        required BuildContext context,
         required String title, 
         required String total, 
         bool? success,
@@ -129,11 +131,20 @@ class HomeScreen extends StatelessWidget {
                                     Expanded(
                                         child: Row(
                                             children: [
-                                                Text(title, style: const TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold)),
+                                                SizedBox(
+                                                    width: MediaQuery.of(context).size.width - 140,
+                                                    child: Text(
+                                                        title,
+                                                        overflow: TextOverflow.ellipsis,
+                                                        maxLines: 2,
+                                                        softWrap: false,
+                                                        style: const TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold)
+                                                    ),
+                                                ),
                                                 const SizedBox(width: 16.0,),
                                                 if(success == true) const Icon(Icons.check, color: Colors.green,)
                                             ],
-                                        )
+                                        ),
                                     ),
                                     Text(total, style: const TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold, color: Colors.green),)
                                 ],

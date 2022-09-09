@@ -36,6 +36,7 @@ class OrderScreen extends StatelessWidget {
                     onPressed: () {
                         orderAction.remove(index);
                     },
+                    context: context,
                     key: ValueKey("key_$index"),
                     title: orderState.orders[index].subject,
                 ),
@@ -44,6 +45,7 @@ class OrderScreen extends StatelessWidget {
     }
 
     Widget _orderList({
+        required BuildContext context,
         required Key key,
         required String title, 
         required Function() onPressed
@@ -69,13 +71,22 @@ class OrderScreen extends StatelessWidget {
                 ),
                 child: SizedBox(
                     height: 60.0,
-                    child: Padding(
-                        padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-                        child: Row(
-                            children: [
-                                Text(title, style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),)
-                            ],
-                        ),
+                    child: Row(
+                        children: [
+                            Padding(
+                                padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                                child: SizedBox(
+                                    width: MediaQuery.of(context).size.width - 45.0,
+                                    child: Text(
+                                        title, 
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 2,
+                                        softWrap: false,
+                                        style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                                    ),
+                                ),
+                            )
+                        ],
                     ),
                 ),
             )
