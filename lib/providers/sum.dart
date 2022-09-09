@@ -41,6 +41,20 @@ class SumProvider extends ChangeNotifier {
         
     }
 
+    void updateIndex(int oldIndex, int newIndex) {
+
+        if (oldIndex < newIndex) {
+            newIndex -= 1;
+        }
+
+        final item = _nums.removeAt(oldIndex);
+        _nums.insert(newIndex, item);
+
+        saveData();
+
+        notifyListeners();
+    }
+
     Future<void> loadData() async {
 
         final result = await _storage.read(

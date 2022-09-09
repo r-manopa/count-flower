@@ -27,20 +27,29 @@ class SumScreen extends StatelessWidget {
                     )
                 ],
             ),
-            body: ListView.builder(
+            body: ReorderableListView.builder(
                 itemCount: sumState.nums.length,
+                onReorder: (oldIndex, newIndex) {
+                    sumAction.updateIndex(oldIndex, newIndex);
+                },
                 itemBuilder: (context, index) => _orderList(
                     onPressed: () {
                         sumAction.remove(index);
                     },
+                    key: ValueKey("key_$index"),
                     title: sumState.nums[index].num.toString(),
                 ),
             ),
         );
     }
 
-    Widget _orderList({required String title, required Function() onPressed}) {
+    Widget _orderList({
+        required Key key,
+        required String title, 
+        required Function() onPressed
+    }) {
         return Container(
+            key: key,
             decoration: BoxDecoration(
                 border: Border(bottom: BorderSide(color: Colors.grey.shade200))
             ),

@@ -104,6 +104,20 @@ class OrderProvider extends ChangeNotifier {
         
     }
 
+    void updateIndex(int oldIndex, int newIndex) {
+
+        if (oldIndex < newIndex) {
+            newIndex -= 1;
+        }
+
+        final item = _orders.removeAt(oldIndex);
+        _orders.insert(newIndex, item);
+
+        saveData();
+
+        notifyListeners();
+    }
+
     Future<void> loadData() async {
 
         final result = await _storage.read(

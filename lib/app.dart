@@ -21,7 +21,7 @@ class CountFlower extends StatelessWidget {
             title: "นับดอกไม้",
             theme: ThemeData(
                 fontFamily: "kanit",
-                primarySwatch: Colors.green,
+                primarySwatch: Colors.indigo,
                 useMaterial3: true
             ),
             routes: Routes.routes(),

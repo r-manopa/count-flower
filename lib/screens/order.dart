@@ -27,20 +27,29 @@ class OrderScreen extends StatelessWidget {
                     )
                 ],
             ),
-            body: ListView.builder(
+            body: ReorderableListView.builder(
                 itemCount: orderState.orders.length,
+                onReorder: (oldIndex, newIndex) {
+                    orderAction.updateIndex(oldIndex, newIndex);
+                },
                 itemBuilder: (context, index) => _orderList(
                     onPressed: () {
                         orderAction.remove(index);
                     },
+                    key: ValueKey("key_$index"),
                     title: orderState.orders[index].subject,
                 ),
-            ),
+            )
         );
     }
 
-    Widget _orderList({required String title, required Function() onPressed}) {
+    Widget _orderList({
+        required Key key,
+        required String title, 
+        required Function() onPressed
+    }) {
         return Container(
+            key: key,
             decoration: BoxDecoration(
                 border: Border(bottom: BorderSide(color: Colors.grey.shade200))
             ),
